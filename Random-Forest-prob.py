@@ -91,7 +91,7 @@ model = RandomForestClassifier(n_estimators=int(sqrt(len(feature_names))) ,max_f
 
 scores = cross_val_score(model,features,labels)
 #scores = model.score(predict_data_array,predict_label_array)
-print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+#print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
 
 model.fit(features, labels)
@@ -101,7 +101,8 @@ test_labels = model.predict(test_data)
 test_probs = model.predict_proba(test_data)
 
 for (keyword, label, prob) in zip(test_key, test_labels, test_probs):
-    print '%.1f\t%s' % (prob[1], keyword)
+    if prob[1] >= 0.6:
+        print '%.1f\t%s' % (prob[1], keyword)
 
 
 
@@ -113,4 +114,4 @@ for (keyword, label, prob) in zip(test_key, test_labels, test_probs):
 # #     i = i + 1
 
 time3 = time.clock()
-print time1-starttime,time2-time1,time3-time2
+#print time1-starttime,time2-time1,time3-time2
